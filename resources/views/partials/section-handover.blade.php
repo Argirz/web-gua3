@@ -5,9 +5,9 @@
             <p class="mt-5 text-white/60 max-w-2xl mx-auto leading-relaxed">Momen bahagia saat kunci rumah resmi diserahkan kepada pemilik baru. Ini adalah bukti nyata komitmen kami dalam mewujudkan hunian impian Anda.</p>
         </div>
 
-        @if ($handovers->count())
+        @if ($serah_terima->count())
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 stagger">
-                @foreach ($handovers as $item)
+                @foreach ($serah_terima as $item)
                     <a href="{{ asset($item->image) }}" data-lightbox="serah-terima" data-title="{{ $item->customer ?? 'Serah Terima Kunci' }}"
                        class="group card-hover block rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 hover:ring-gold-400/40">
                         <div class="img-zoom rounded-none">

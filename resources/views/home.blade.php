@@ -1,4 +1,4 @@
-<x-layout :$settings>
+<x-layout :$pengaturan>
     @include('partials.hero')
 
     {{-- Foto Progress --}}

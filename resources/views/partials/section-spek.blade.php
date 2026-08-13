@@ -5,7 +5,7 @@
             <p class="mt-5 text-muted max-w-2xl mx-auto leading-relaxed">Setiap unit dibangun dengan material pilihan dan mengikuti standar konstruksi terbaik. Kenali detail spesifikasi yang kami gunakan.</p>
         </div>
 
-        @if ($specifications->count())
+        @if ($spesifikasi->count())
             @php
                 $specs = [
                     'Struktur & Pondasi' => [
@@ -44,7 +44,7 @@
             @endphp
 
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 stagger">
-                @foreach ($specifications as $category => $items)
+                @foreach ($spesifikasi as $category => $items)
                     @php $s = $specs[$category] ?? null; @endphp
                     <div class="card card-hover p-6 sm:p-7">
                         <div class="flex items-center gap-4 mb-6">

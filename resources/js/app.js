@@ -1,5 +1,26 @@
 import './bootstrap';
 
+document.documentElement.classList.add('has-js');
+
+// =====================
+// Scroll reveal
+// =====================
+const revealObserver = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+);
+
+document.querySelectorAll('.anim-hidden, .anim-slide-left, .anim-slide-right, .anim-scale, .stagger > *').forEach((el) => {
+    revealObserver.observe(el);
+});
+
 // =====================
 // Navbar scroll state
 // =====================

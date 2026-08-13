@@ -1,7 +1,7 @@
 @php
-    $persen = $totalUnits > 0 ? round($soldUnits / $totalUnits * 100) : 0;
+    $persen = $total_unit > 0 ? round($unit_terjual / $total_unit * 100) : 0;
 
-    $perTipe = $units->groupBy('type')->map(function ($items, $type) {
+    $perTipe = $unit_rumah->groupBy('tipe')->map(function ($items, $type) {
         return [
             'type' => $type,
             'total' => $items->count(),
@@ -23,19 +23,19 @@
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12 stagger">
             <div class="card p-5 !border-0 bg-brand-950 text-white">
                 <p class="text-sm text-white/60 font-medium mb-1">Total Unit</p>
-                <p class="text-3xl font-extrabold">{{ $totalUnits }}</p>
+                <p class="text-3xl font-extrabold">{{ $total_unit }}</p>
             </div>
             <div class="card p-5 !border-0 bg-brand-50">
                 <p class="text-sm text-brand-600/80 font-medium mb-1">Terjual</p>
-                <p class="text-3xl font-extrabold text-brand-600">{{ $soldUnits }}</p>
+                <p class="text-3xl font-extrabold text-brand-600">{{ $unit_terjual }}</p>
             </div>
             <div class="card p-5 !border-0 bg-gold-50">
                 <p class="text-sm text-gold-600/80 font-medium mb-1">Dipesan</p>
-                <p class="text-3xl font-extrabold text-gold-600">{{ $bookedUnits }}</p>
+                <p class="text-3xl font-extrabold text-gold-600">{{ $unit_dipesan }}</p>
             </div>
             <div class="card p-5 !border-0 bg-[#f0f7ff]">
                 <p class="text-sm text-sky-600/80 font-medium mb-1">Tersedia</p>
-                <p class="text-3xl font-extrabold text-sky-600">{{ $availableUnits }}</p>
+                <p class="text-3xl font-extrabold text-sky-600">{{ $unit_tersedia }}</p>
             </div>
         </div>
 
@@ -64,16 +64,16 @@
             <div class="flex-1 w-full">
                 <p class="text-sm font-bold text-ink mb-3">Komposisi</p>
                 <div class="h-3 bg-brand-50 rounded-full overflow-hidden flex">
-                    @if ($totalUnits > 0)
+                    @if ($total_unit > 0)
                         <div class="bg-[#61a47b] transition-all duration-1000" style="width: {{ $persen }}%"></div>
-                        <div class="bg-gold-400 transition-all duration-1000" style="width: {{ round($bookedUnits / $totalUnits * 100) }}%"></div>
-                        <div class="bg-sky-400 transition-all duration-1000" style="width: {{ round($availableUnits / $totalUnits * 100) }}%"></div>
+                        <div class="bg-gold-400 transition-all duration-1000" style="width: {{ round($unit_dipesan / $total_unit * 100) }}%"></div>
+                        <div class="bg-sky-400 transition-all duration-1000" style="width: {{ round($unit_tersedia / $total_unit * 100) }}%"></div>
                     @endif
                 </div>
                 <div class="flex flex-wrap gap-5 mt-4 text-sm">
-                    <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-[#61a47b]"></span> Terjual <strong class="text-ink">{{ $soldUnits }}</strong></span>
-                    <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-gold-400"></span> Dipesan <strong class="text-ink">{{ $bookedUnits }}</strong></span>
-                    <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span> Tersedia <strong class="text-ink">{{ $availableUnits }}</strong></span>
+                    <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-[#61a47b]"></span> Terjual <strong class="text-ink">{{ $unit_terjual }}</strong></span>
+                    <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-gold-400"></span> Dipesan <strong class="text-ink">{{ $unit_dipesan }}</strong></span>
+                    <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span> Tersedia <strong class="text-ink">{{ $unit_tersedia }}</strong></span>
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
             </div>
             <div class="p-5 sm:p-6">
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
-                    @foreach ($units as $unit)
+                    @foreach ($unit_rumah as $unit)
                         @php
                             $sc = $unit->status === 'terjual' ? '#3f8a60' : ($unit->status === 'dipesan' ? '#cda453' : '#38bdf8');
                             $sl = $unit->status === 'terjual' ? 'Terjual' : ($unit->status === 'dipesan' ? 'Dipesan' : 'Tersedia');
@@ -126,7 +126,7 @@
                             <span class="w-2 h-2 rounded-full shrink-0" style="background: {{ $sc }};"></span>
                             <div class="min-w-0 flex-1">
                                 <p class="text-sm font-bold text-ink truncate">{{ $unit->block ?? '-' }}</p>
-                                <p class="text-[11px] text-muted truncate">{{ $unit->type }}</p>
+                                <p class="text-[11px] text-muted truncate">{{ $unit->tipe }}</p>
                             </div>
                         </div>
                     @endforeach

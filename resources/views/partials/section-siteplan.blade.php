@@ -5,7 +5,7 @@
             <p class="mt-5 text-muted max-w-2xl mx-auto leading-relaxed">Layout lengkap nomor kavling perumahan Griya Utama Asri 3, total 85 unit.</p>
         </div>
 
-        @if ($siteplans->count())
+        @if ($denah->count())
             <div class="mb-10 anim-hidden flex justify-center">
                 <a href="{{ asset('images/Siteplan GUA3.jpg') }}" data-lightbox="siteplan" data-title="Siteplan Griya Utama Asri 3"
                    class="group card card-hover block max-w-2xl w-full overflow-hidden">
@@ -21,7 +21,7 @@
             </div>
 
             <div class="grid gap-6 sm:grid-cols-2 max-w-4xl mx-auto stagger">
-                @foreach ($siteplans as $siteplan)
+                @foreach ($denah as $siteplan)
                     <a href="{{ asset($siteplan->image) }}" data-lightbox="siteplan" data-title="{{ $siteplan->title }}"
                        class="group card card-hover block overflow-hidden">
                         <div class="img-zoom rounded-none bg-brand-50">

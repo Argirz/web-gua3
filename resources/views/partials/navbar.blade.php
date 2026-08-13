@@ -1,5 +1,5 @@
 @php
-    $wa = preg_replace('/[^0-9]/', '', $settings['whatsapp'] ?? '');
+    $wa = preg_replace('/[^0-9]/', '', $pengaturan['whatsapp'] ?? '');
     $waLink = $wa ? 'https://wa.me/' . $wa : '#';
     $menu = [
         'foto-rumah' => 'Foto Rumah',

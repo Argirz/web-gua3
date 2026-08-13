@@ -5,20 +5,23 @@
             <p class="mt-5 text-muted max-w-2xl mx-auto leading-relaxed">Lihat tampilan unit dan suasana lingkungan Griya Utama Asri 3.</p>
         </div>
 
-        @if ($galleries->count())
-            <div class="anim-hidden relative overflow-hidden rounded-3xl bg-brand-950 ring-1 ring-line shadow-xl aspect-[16/9]">
-                @foreach ($galleries as $i => $item)
-                    <div class="galeri-slide absolute inset-0 transition-opacity duration-700 ease-in-out {{ $i === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none' }}">
-                        <img src="{{ asset($item->image) }}" alt="{{ $item->title }}" loading="lazy"
-                             class="w-full h-full object-cover pointer-events-none select-none">
-                    </div>
-                @endforeach
-
-                <div class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
-                    @foreach ($galleries as $i => $item)
-                        <button type="button" onclick="galeriTo({{ $i }})" aria-label="Foto {{ $i + 1 }}"
-                                class="galeri-dot w-2 h-2 rounded-full bg-white/40 transition-all duration-300 {{ $i === 0 ? 'bg-gold-400 w-7' : '' }}"></button>
+        @if ($foto_rumah->count())
+            <div class="max-w-lg mx-auto anim-hidden">
+                <div class="relative overflow-hidden rounded-3xl bg-brand-950 ring-1 ring-line shadow-xl aspect-[3/4]">
+                    @foreach ($foto_rumah as $i => $item)
+                        <a href="{{ asset($item->image) }}" data-lightbox="foto-rumah" data-title="{{ $item->title }}"
+                           class="galeri-slide absolute inset-0 block transition-opacity duration-700 ease-in-out {{ $i === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none' }}">
+                            <img src="{{ asset($item->image) }}" alt="{{ $item->title }}" loading="lazy"
+                                 class="w-full h-full object-cover pointer-events-none select-none">
+                        </a>
                     @endforeach
+
+                    <div class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
+                        @foreach ($foto_rumah as $i => $item)
+                            <button type="button" onclick="galeriTo({{ $i }})" aria-label="Foto {{ $i + 1 }}"
+                                    class="galeri-dot w-2 h-2 rounded-full bg-white/40 transition-all duration-300 {{ $i === 0 ? 'bg-gold-400 w-7' : '' }}"></button>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         @else

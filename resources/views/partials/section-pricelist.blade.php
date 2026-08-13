@@ -23,8 +23,8 @@
                             @endphp
                             <tr class="border-b border-line last:border-0 hover:bg-brand-50/60 transition-colors">
                                 <td class="py-5 px-4 sm:px-6 font-bold text-ink whitespace-nowrap">{{ $pl->title }}</td>
-                                <td class="py-5 px-4 sm:px-6 text-muted text-right whitespace-nowrap">{{ $pl->land_area ? $pl->land_area . ' mÂ²' : '-' }}</td>
-                                <td class="py-5 px-4 sm:px-6 text-muted text-right whitespace-nowrap">{{ $pl->building_area ? $pl->building_area . ' mÂ²' : '-' }}</td>
+                                <td class="py-5 px-4 sm:px-6 text-muted text-right whitespace-nowrap">{{ $pl->land_area ? $pl->land_area . ' m²' : '-' }}</td>
+                                <td class="py-5 px-4 sm:px-6 text-muted text-right whitespace-nowrap">{{ $pl->building_area ? $pl->building_area . ' m²' : '-' }}</td>
                                 <td class="py-5 px-4 sm:px-6 text-right align-middle whitespace-nowrap">
                                     @if ($pl->discount > 0)
                                         <span class="text-sm text-muted line-through mr-2 align-middle">Rp {{ number_format($pl->price, 0, ',', '.') }}</span>
