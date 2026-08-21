@@ -6,10 +6,24 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use RuntimeException;
 
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 class GambarWebp
 {
     public static function simpan(UploadedFile $file, string $folder, int $kualitas = 80): string
     {
+        if (env('CLOUDINARY_URL')) {
+            try {
+                return Cloudinary::upload($file->getRealPath(), [
+                    'folder' => 'web-gua3/' . $folder,
+                    'format' => 'webp',
+                    'quality' => 'auto',
+                ])->getSecurePath();
+            } catch (\Exception $e) {
+                throw new RuntimeException('Gagal mengunggah gambar ke Cloudinary: ' . $e->getMessage());
+            }
+        }
+
         $dir = public_path('images/' . $folder);
         if (! is_dir($dir)) {
             mkdir($dir, 0775, true);
@@ -62,7 +76,32 @@ class GambarWebp
 
     public static function hapus(?string $path): void
     {
-        if ($path && is_file(public_path($path))) {
+        if (!$path) return;
+
+        if (str_starts_with($path, 'http')) {
+            // Jika ini URL Cloudinary, ekstrak public ID dan hapus
+            if (env('CLOUDINARY_URL') && str_contains($path, 'cloudinary.com')) {
+                try {
+                    $parts = explode('/', parse_url($path, PHP_URL_PATH));
+                    $filename = end($parts);
+                    $publicId = explode('.', $filename)[0];
+                    
+                    // Mendapatkan struktur folder dari path
+                    // Asumsi: path Cloudinary biasanya .../upload/v1234/folder/subfolder/file.ext
+                    $uploadIndex = array_search('upload', $parts);
+                    if ($uploadIndex !== false && count($parts) > $uploadIndex + 2) {
+                        $folders = array_slice($parts, $uploadIndex + 2, -1);
+                        $fullPublicId = implode('/', $folders) . '/' . $publicId;
+                        Cloudinary::destroy($fullPublicId);
+                    }
+                } catch (\Exception $e) {
+                    // Abaikan error saat menghapus di Cloudinary
+                }
+            }
+            return;
+        }
+
+        if (is_file(public_path($path))) {
             @unlink(public_path($path));
         }
     }

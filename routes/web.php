@@ -74,3 +74,7 @@ Route::middleware(['auth', 'panel'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/pengaturan', [PengaturanController::class, 'edit'])->name('pengaturan.edit');
     Route::post('/pengaturan', [PengaturanController::class, 'perbarui'])->name('pengaturan.perbarui');
 });
+Route::get('/migrate', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+    return 'Migrasi Selesai!';
+});
