@@ -5,10 +5,6 @@
         {
             "src": "api/index.php",
             "use": "vercel-php@0.9.0"
-        },
-        {
-            "src": "public/**",
-            "use": "@vercel/static"
         }
     ],
     "routes": [
@@ -26,6 +22,8 @@
         "APP_DEBUG": "false",
         "CACHE_DRIVER": "array",
         "SESSION_DRIVER": "cookie",
-        "QUEUE_CONNECTION": "sync"
+        "QUEUE_CONNECTION": "sync",
+        "LOG_CHANNEL": "stderr",
+        "VIEW_COMPILED_PATH": "/tmp"
     }
 }
