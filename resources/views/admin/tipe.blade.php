@@ -1,8 +1,10 @@
 <x-admin-layout judul="Manajemen Tipe Rumah">
-    <div class="flex items-center justify-between">
-        <p class="text-sm text-muted">{{ $tipe->count() }} tipe rumah</p>
-        <a href="{{ route('admin.tipe.create') }}" class="rounded-xl bg-brand-600 hover:bg-brand-700 transition-colors text-white font-semibold text-sm px-5 py-2.5">+ Tambah Tipe</a>
-    </div>
+    @php
+        $fmtLuas = fn ($v) => $v == (int) $v ? (int) $v : rtrim(rtrim(number_format($v, 1, '.', ''), '0'), '.');
+    @endphp
+    <x-slot name="headerAction">
+        <a href="{{ route('admin.tipe.create') }}" class="btn bg-white text-brand-900 hover:bg-brand-50 shadow-sm text-sm px-4 py-2">+ Tambah Tipe</a>
+    </x-slot>
 
     <div class="card overflow-hidden">
         <div class="overflow-x-auto">
@@ -26,7 +28,7 @@
                                     <a href="{{ asset($t->image) }}" target="_blank" class="text-xs text-brand-600 hover:underline ml-2">denah ↗</a>
                                 @endif
                             </td>
-                            <td class="py-3 px-4 whitespace-nowrap">{{ $t->land_area }} / {{ $t->building_area }} m²</td>
+                            <td class="py-3 px-4 whitespace-nowrap">{{ $fmtLuas($t->land_area) }} / {{ $fmtLuas($t->building_area) }} m²</td>
                             <td class="py-3 px-4 whitespace-nowrap">{{ $t->bedrooms ?? '-' }} KT / {{ $t->bathrooms ?? '-' }} KM</td>
                             <td class="py-3 px-4 whitespace-nowrap">
                                 <form method="POST" action="{{ route('admin.tipe.harga', $t) }}" class="flex items-center gap-2">
@@ -36,7 +38,7 @@
                                            title="Harga" class="w-28 rounded-lg border border-line px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-600">
                                     <input type="number" name="discount" value="{{ $t->discount }}" min="0" step="100000"
                                            title="Diskon" class="w-28 rounded-lg border border-line px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-600">
-                                    <button type="submit" class="rounded-lg bg-brand-600 hover:bg-brand-700 transition-colors text-white text-xs font-semibold px-2.5 py-1.5">Simpan</button>
+                                    <button type="submit" class="btn btn-primary btn-sm px-3 py-1.5 text-xs">Simpan</button>
                                 </form>
                             </td>
                             <td class="py-3 px-4">

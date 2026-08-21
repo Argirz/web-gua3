@@ -1,4 +1,7 @@
 <x-admin-layout judul="{{ $fotoRumah ? 'Edit Foto' : 'Tambah Foto' }}">
+    @php
+        $labelKategori = ['unit' => 'Unit', 'serah_terima' => 'Serah Terima', 'siteplan' => 'Siteplan'];
+    @endphp
     <div class="card p-5 sm:p-8 max-w-2xl">
         <form method="POST" action="{{ $fotoRumah ? route('admin.foto.perbarui', $fotoRumah) : route('admin.foto.simpan') }}"
               enctype="multipart/form-data" class="space-y-5">
@@ -31,7 +34,7 @@
                     <label class="block text-xs font-bold uppercase tracking-wide text-muted mb-1.5">Kategori *</label>
                     <select name="kategori" class="w-full rounded-xl border border-line px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-600">
                         @foreach (['unit', 'serah_terima', 'siteplan'] as $k)
-                            <option value="{{ $k }}" @selected(old('kategori', $fotoRumah?->kategori ?? 'unit') === $k)>{{ ucfirst($k) }}</option>
+                            <option value="{{ $k }}" @selected(old('kategori', $fotoRumah?->kategori ?? 'unit') === $k)>{{ $labelKategori[$k] }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -58,7 +61,7 @@
             </label>
 
             <div class="flex items-center gap-3 pt-2">
-                <button type="submit" class="rounded-xl bg-brand-600 hover:bg-brand-700 transition-colors text-white font-semibold px-6 py-2.5 text-sm">
+                <button type="submit" class="btn btn-primary btn-sm px-6">
                     {{ $fotoRumah ? 'Simpan Perubahan' : 'Simpan Foto' }}
                 </button>
                 <a href="{{ route('admin.foto.index') }}" class="text-sm text-muted hover:text-ink font-semibold">Batal</a>

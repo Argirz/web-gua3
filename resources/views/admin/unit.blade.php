@@ -25,7 +25,7 @@
                 </select>
             </div>
             <div class="flex items-end">
-                <button type="submit" class="rounded-xl bg-brand-600 hover:bg-brand-700 transition-colors text-white font-semibold text-sm px-6 py-2.5">Tambah</button>
+                <button type="submit" class="btn btn-primary btn-sm w-full sm:w-auto">Tambah</button>
             </div>
         </form>
     </div>

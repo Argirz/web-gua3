@@ -1,8 +1,7 @@
-<x-admin-layout judul="Manajemen Brosur / PDF">
-    <div class="flex items-center justify-between">
-        <p class="text-sm text-muted">{{ $brosur->count() }} berkas</p>
-        <a href="{{ route('admin.brosur.create') }}" class="rounded-xl bg-brand-600 hover:bg-brand-700 transition-colors text-white font-semibold text-sm px-5 py-2.5">+ Tambah Berkas</a>
-    </div>
+<x-admin-layout judul="Manajemen Brosur">
+    <x-slot name="headerAction">
+        <a href="{{ route('admin.brosur.create') }}" class="btn bg-white text-brand-900 hover:bg-brand-50 shadow-sm text-sm px-4 py-2">+ Tambah Berkas</a>
+    </x-slot>
 
     <div class="card overflow-hidden">
         <div class="overflow-x-auto">

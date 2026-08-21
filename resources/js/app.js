@@ -1,6 +1,67 @@
 import './bootstrap';
+import Velocity from 'velocity-animate';
 
 document.documentElement.classList.add('has-js');
+
+
+
+// =====================
+// Velocity scroll — parallax berbasis kecepatan scroll
+// Elemen [data-velocity] bergerak pada kecepatan berbeda (depth layer)
+// Elemen [data-velocity-fade] memudar saat halaman di-scroll ke bawah
+// =====================
+const velocityEls = document.querySelectorAll('[data-velocity]');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (velocityEls.length && !reduceMotion) {
+    let ticking = false;
+
+    function updateVelocity() {
+        const sy = window.scrollY;
+        const vh = window.innerHeight;
+
+        velocityEls.forEach((el) => {
+            const speed = parseFloat(el.dataset.velocity || '0.5');
+            const rect = el.getBoundingClientRect();
+            const distance = rect.top + rect.height / 2 - vh / 2;
+
+            let y = distance * (1 - speed);
+            y = Math.max(-140, Math.min(140, y));
+
+            let opacity = null;
+            if (el.hasAttribute('data-velocity-fade')) {
+                const fadeAt = parseFloat(el.dataset.velocityFade || '0.6');
+                opacity = Math.max(0, Math.min(1, 1 - sy / (vh * fadeAt)));
+            }
+
+            const prevY = parseFloat(el.dataset.py ?? 'NaN');
+            const prevO = el.dataset.po ? parseFloat(el.dataset.po) : null;
+            const moved = Number.isNaN(prevY) || Math.abs(y - prevY) > 0.5;
+            const faded = opacity === null || prevO === null || Math.abs(opacity - prevO) > 0.01;
+
+            if (moved || faded) {
+                el.dataset.py = y;
+                if (opacity !== null) el.dataset.po = opacity;
+                Velocity(
+                    el,
+                    opacity !== null ? { translateY: y, opacity } : { translateY: y },
+                    { duration: 100, easing: 'easeOutQuad', queue: false, mobileHA: true }
+                );
+            }
+        });
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(updateVelocity);
+        }
+    }, { passive: true });
+    window.addEventListener('resize', updateVelocity);
+    updateVelocity();
+}
 
 // =====================
 // Scroll reveal
@@ -141,54 +202,74 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => {
 });
 
 // =====================
-// Brosur Slideshow
-// =====================
+// Brosur Slideshow (Peek Carousel)
 (function() {
-    const slides = document.querySelectorAll('#brosur-slideshow .brosur-slide');
-    const dots = document.querySelectorAll('.brosur-dot');
-    const prevBtn = document.getElementById('brosur-prev');
-    const nextBtn = document.getElementById('brosur-next');
-    const caption = document.getElementById('brosur-caption');
-    const desc = document.getElementById('brosur-desc');
+    const slideshow = document.getElementById('brosur-slideshow');
+    if (!slideshow) return;
+    const slides = Array.from(slideshow.querySelectorAll('.brosur-slide'));
     const lightbox = document.getElementById('brosur-lightbox');
     const lbImg = document.getElementById('brosur-lb-img');
     const lbClose = document.getElementById('brosur-lb-close');
-
-    if (!slides.length) return;
-
+    
     let current = 0;
     let autoTimer = null;
     const total = slides.length;
 
-    function goTo(index) {
-        slides.forEach((s) => { s.classList.replace('opacity-100', 'opacity-0'); s.classList.add('pointer-events-none'); });
-        dots.forEach((d) => { d.classList.replace('bg-gold-400', 'bg-white/40'); d.classList.remove('w-8'); });
-
-        current = index;
-        slides[current].classList.replace('opacity-0', 'opacity-100');
-        slides[current].classList.remove('pointer-events-none');
-        dots[current].classList.replace('bg-white/40', 'bg-gold-400');
-        dots[current].classList.add('w-8');
-
-        if (caption) caption.textContent = slides[current].querySelector('img')?.dataset.title || '';
-        if (desc) desc.textContent = slides[current].querySelector('img')?.dataset.desc || '';
+    function updateVisuals() {
+        slides.forEach((s, idx) => {
+            if (idx === current) {
+                s.classList.replace('opacity-50', 'opacity-100');
+                s.classList.replace('scale-95', 'scale-100');
+            } else {
+                s.classList.replace('opacity-100', 'opacity-50');
+                s.classList.replace('scale-100', 'scale-95');
+            }
+        });
     }
 
-    function next() { goTo((current + 1) % total); }
-    function prev() { goTo((current - 1 + total) % total); }
+    let isScrolling;
+    slideshow.addEventListener('scroll', () => {
+        // Find slide closest to the center
+        const viewCenter = slideshow.scrollLeft + (slideshow.clientWidth / 2);
+        let closestIdx = 0;
+        let minDistance = Infinity;
+        
+        slides.forEach((s, idx) => {
+            const sCenter = s.offsetLeft - slideshow.offsetLeft + (s.clientWidth / 2);
+            const dist = Math.abs(sCenter - viewCenter);
+            if (dist < minDistance) {
+                minDistance = dist;
+                closestIdx = idx;
+            }
+        });
 
-    function startAuto() { stopAuto(); autoTimer = setInterval(next, 4000); }
+        if (current !== closestIdx) {
+            current = closestIdx;
+            updateVisuals();
+        }
+    }, { passive: true });
+
+    function goTo(index, isWrap = false) {
+        if (!slides[index]) return;
+        const targetLeft = slides[index].offsetLeft - slideshow.offsetLeft - (slideshow.clientWidth / 2) + (slides[index].clientWidth / 2);
+        slideshow.scrollTo({ left: targetLeft, behavior: isWrap ? 'instant' : 'smooth' });
+    }
+
+    function next() {
+        const nextIdx = (current + 1) % total;
+        goTo(nextIdx, nextIdx === 0 && current === total - 1);
+    }
+
+    function startAuto() { stopAuto(); autoTimer = setInterval(next, 2500); }
     function stopAuto() { if (autoTimer) clearInterval(autoTimer); }
 
-    if (prevBtn) prevBtn.addEventListener('click', () => { prev(); startAuto(); });
-    if (nextBtn) nextBtn.addEventListener('click', () => { next(); startAuto(); });
-    dots.forEach((d) => d.addEventListener('click', () => { goTo(parseInt(d.dataset.index)); startAuto(); }));
-
-    const slideshow = document.getElementById('brosur-slideshow');
-    if (slideshow) {
-        slideshow.addEventListener('mouseenter', stopAuto);
-        slideshow.addEventListener('mouseleave', startAuto);
-    }
+    slideshow.addEventListener('mouseenter', stopAuto);
+    slideshow.addEventListener('mouseleave', startAuto);
+    slideshow.addEventListener('touchstart', stopAuto, {passive: true});
+    slideshow.addEventListener('touchend', startAuto, {passive: true});
+    
+    // Initial setup
+    goTo(0);
     startAuto();
 
     // Lightbox zoom

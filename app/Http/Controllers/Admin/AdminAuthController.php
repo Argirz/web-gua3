@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminAuthController extends Controller
 {
@@ -16,18 +18,21 @@ class AdminAuthController extends Controller
     public function login(Request $request)
     {
         $validated = $request->validate([
-            'email' => ['required', 'email'],
+            'username' => ['required', 'string'],
             'password' => ['required', 'string'],
         ]);
 
-        if (! Auth::attempt([
-            'email' => $validated['email'],
-            'password' => $validated['password'],
-        ], $request->boolean('ingat'))) {
+        $user = Pengguna::where('name', $validated['username'])
+            ->orWhere('email', $validated['username'])
+            ->first();
+
+        if (! $user || ! Hash::check($validated['password'], $user->password)) {
             return back()->withErrors([
-                'email' => 'Email atau kata sandi salah.',
-            ])->onlyInput('email');
+                'username' => 'Username atau kata sandi salah.',
+            ])->onlyInput('username');
         }
+
+        Auth::login($user, $request->boolean('ingat'));
 
         $request->session()->regenerate();
 

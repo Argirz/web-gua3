@@ -14,7 +14,7 @@
 @endphp
 
 <header id="navbar" class="fixed inset-x-0 top-0 z-50">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="w-full px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-18 xl:h-20">
             <a href="#beranda" class="flex items-center gap-3 group">
                 <img src="{{ asset('images/logo-gua3.jpg') }}" alt="Logo GUA 3"
@@ -29,6 +29,7 @@
                     <a href="#{{ $id }}" class="nav-link px-3 py-2.5 rounded-full">{{ $label }}</a>
                 @endforeach
                 <a href="#kontak" class="nav-link px-3 py-2.5 rounded-full">Kontak</a>
+                <a href="#minat" class="nav-link px-3 py-2.5 rounded-full">Formulir Minat</a>
             </div>
 
             <button id="menu-toggle" type="button" class="xl:hidden p-2 rounded-full text-white transition" aria-label="Menu">
@@ -43,6 +44,7 @@
                     <a href="#{{ $id }}" class="px-4 py-3 text-sm font-semibold text-ink-soft hover:bg-brand-50 hover:text-brand-600 rounded-xl transition-all">{{ $label }}</a>
                 @endforeach
                 <a href="#kontak" class="px-4 py-3 text-sm font-semibold text-ink-soft hover:bg-brand-50 hover:text-brand-600 rounded-xl transition-all">Kontak</a>
+                <a href="#minat" class="px-4 py-3 text-sm font-semibold text-ink-soft hover:bg-brand-50 hover:text-brand-600 rounded-xl transition-all">Formulir Minat</a>
             </div>
         </div>
     </nav>

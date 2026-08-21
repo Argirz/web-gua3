@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->foreignId('tipe_rumah_id')->nullable()->constrained('tipe_rumah')->nullOnDelete();
             $table->string('nama_lengkap');
             $table->string('nomor_wa');
-            $table->enum('sumber', ['brosur', 'pricelist', 'kontak'])->default('brosur');
+            $table->enum('sumber', ['brosur', 'sosmed', 'kontak'])->default('brosur');
             $table->enum('status', ['baru', 'dihubungi', 'deal', 'gugur'])->default('baru');
             $table->timestamps();
             $table->index('status');

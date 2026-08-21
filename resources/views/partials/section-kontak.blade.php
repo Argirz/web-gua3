@@ -1,8 +1,8 @@
-<section id="kontak" class="py-20 lg:py-28 dark-gradient text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-14 anim-hidden text-center">
-            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-white">Hubungi Kami</h2>
-            <p class="mt-5 text-white/60 max-w-2xl mx-auto leading-relaxed">Tim kami siap membantu Anda menemukan hunian impian. Jangan ragu untuk menghubungi kami melalui WhatsApp atau kunjungi langsung marketing office kami.</p>
+<section id="kontak" class="py-20 lg:py-32 dark-gradient text-white">
+    <div class="w-full px-4 sm:px-6 lg:px-8">
+        <div class="mb-14 lg:mb-20 anim-hidden flex flex-col items-center text-center">
+            <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white">Hubungi Kami</h2>
+            <p class="mt-5 text-white/70 max-w-2xl mx-auto leading-relaxed text-sm sm:text-base">Punya pertanyaan seputar ketersediaan unit dan promo? Jangan ragu untuk berdiskusi dengan kami melalui WhatsApp atau berkunjung langsung ke kantor pemasaran kami.</p>
         </div>
         @php
             $wa = preg_replace('/[^0-9]/', '', $pengaturan['whatsapp'] ?? '');

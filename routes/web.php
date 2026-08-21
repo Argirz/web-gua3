@@ -30,6 +30,7 @@ Route::middleware(['auth', 'panel'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/search', [\App\Http\Controllers\Admin\SearchController::class, 'index'])->name('search');
 
     Route::get('/prospek', [AdminProspekController::class, 'index'])->name('prospek.index');
     Route::get('/prospek/export', [AdminProspekController::class, 'export'])->name('prospek.export');

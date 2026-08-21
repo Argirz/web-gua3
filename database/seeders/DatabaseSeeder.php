@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         Pengguna::updateOrCreate(
             ['email' => 'admin@gua3.test'],
             [
-                'name' => 'Admin GUA 3',
+                'name' => 'Admin',
                 'role' => 'admin',
-                'password' => env('ADMIN_PASSWORD') ? Hash::make(env('ADMIN_PASSWORD')) : Hash::make('password'),
+                'password' => env('ADMIN_PASSWORD') ? Hash::make(env('ADMIN_PASSWORD')) : Hash::make('griyaasri3'),
             ]
         );
 
@@ -31,8 +31,8 @@ class DatabaseSeeder extends Seeder
             'nama_perusahaan' => 'PT. Sinar Berlian Jaya Utama',
             'tagline' => 'Hunian asri, modern, dan aman di kawasan strategis Banjarbaru dengan harga terjangkau.',
             'alamat' => 'HQJ8+3X, Syamsudin Noor, Kec. Landasan Ulin, Kota Banjar Baru, Kalimantan Selatan 70721',
-            'telepon' => '081348190849',
-            'whatsapp' => '081348190849',
+            'telepon' => '0895340878054',
+            'whatsapp' => '62895340878054',
             'email' => 'info@griyautamaasri3.id',
             'jam_operasional' => 'Senin – Sabtu, 08.00 – 16.30 WITA',
             'deskripsi' => 'Griya Utama Asri 3 merupakan kawasan perumahan modern dengan suasana hijau dan asri. Lokasi strategis dengan akses mudah ke pusat kota, dekat dengan fasilitas pendidikan, perbelanjaan, dan kesehatan.',
@@ -55,54 +55,35 @@ class DatabaseSeeder extends Seeder
 
         // Handover data kosong sementara - belum ada foto serah terima
 
-        $tipe36a = TipeRumah::create([
-            'name' => 'Tipe 36A / 72',
-            'slug' => Str::slug('Tipe 36A / 72'),
+        $tipe36 = TipeRumah::create([
+            'name' => 'Tipe 36',
+            'slug' => Str::slug('Tipe 36'),
             'image' => 'images/denah-tipe-36a.png',
-            'description' => 'Tipe 36A: 2 Kamar Tidur, 1 Kamar Mandi, Ruang Tamu, Dapur, Teras, Carport. Luas tanah 72 m², luas bangunan 36 m².',
+            'description' => 'Tipe 36: 2 Kamar Tidur, 1 Kamar Mandi, Ruang Tamu, Dapur, Teras, Carport. Luas tanah 72 m², luas bangunan 36 m².',
             'land_area' => 72,
             'building_area' => 36,
             'bedrooms' => 2,
             'bathrooms' => 1,
-            'price' => 185000000,
-            'discount' => 5000000,
+            'price' => 182000000,
+            'discount' => 0,
             'sort_order' => 1,
         ]);
 
-        $tipe36b = TipeRumah::create([
-            'name' => 'Tipe 36B / 72',
-            'slug' => Str::slug('Tipe 36B / 72'),
-            'image' => 'images/denah-tipe-36b.png',
-            'description' => 'Tipe 36B: 2 Kamar Tidur, 1 Kamar Mandi, Ruang Tamu, Dapur, Teras, Carport. Luas tanah 72 m², luas bangunan 36 m². Layout alternatif.',
-            'land_area' => 72,
-            'building_area' => 36,
-            'bedrooms' => 2,
-            'bathrooms' => 1,
-            'price' => 185000000,
-            'discount' => 0,
-            'sort_order' => 2,
-        ]);
-
-        $data = [
-            ['block' => 'A1', 'type' => $tipe36a, 'status' => 'terjual'],
-            ['block' => 'A2', 'type' => $tipe36a, 'status' => 'terjual'],
-            ['block' => 'A3', 'type' => $tipe36b, 'status' => 'tersedia'],
-            ['block' => 'B1', 'type' => $tipe36a, 'status' => 'dipesan'],
-            ['block' => 'B2', 'type' => $tipe36b, 'status' => 'terjual'],
-            ['block' => 'C1', 'type' => $tipe36a, 'status' => 'terjual'],
-            ['block' => 'C2', 'type' => $tipe36b, 'status' => 'tersedia'],
-            ['block' => 'C3', 'type' => $tipe36b, 'status' => 'terjual'],
-            ['block' => 'D1', 'type' => $tipe36a, 'status' => 'terjual'],
-            ['block' => 'D2', 'type' => $tipe36a, 'status' => 'tersedia'],
-            ['block' => 'E1', 'type' => $tipe36b, 'status' => 'tersedia'],
+        $jumlahBlok = ['A' => 10, 'B' => 28, 'C' => 21, 'D' => 26];
+        $terjual = [
+            'B' => [1, 4, 8, 14, 18, 19, 21, 22, 23, 24, 28],
+            'C' => [1, 2, 3, 4, 6, 7, 8],
+            'D' => [1, 2, 3, 4, 5, 7, 8, 10, 11],
         ];
 
-        foreach ($data as $d) {
-            UnitRumah::create([
-                'block' => $d['block'],
-                'unit_type_id' => $d['type']->id,
-                'status' => $d['status'],
-            ]);
+        foreach ($jumlahBlok as $blok => $jumlah) {
+            for ($i = 1; $i <= $jumlah; $i++) {
+                UnitRumah::create([
+                    'block' => $blok . $i,
+                    'unit_type_id' => $tipe36->id,
+                    'status' => in_array($i, $terjual[$blok] ?? []) ? 'terjual' : 'tersedia',
+                ]);
+            }
         }
 
         $specs = [

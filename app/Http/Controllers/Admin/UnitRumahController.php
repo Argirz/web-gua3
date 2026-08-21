@@ -16,7 +16,7 @@ class UnitRumahController extends Controller
         return view('admin.unit', [
             'unit' => UnitRumah::with('tipeRumah')
                 ->when($status !== '' && in_array($status, ['tersedia', 'dipesan', 'terjual'], true), fn ($q) => $q->where('status', $status))
-                ->orderBy('block')
+                ->orderByRaw('SUBSTRING(block, 1, 1) ASC, CAST(SUBSTRING(block, 2) AS UNSIGNED) ASC')
                 ->get(),
             'tipe' => TipeRumah::orderBy('sort_order')->get(),
             'status' => $status,

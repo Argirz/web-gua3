@@ -3,11 +3,11 @@
         <div class="card p-5">
             <p class="text-sm text-muted font-medium">Total Prospek</p>
             <p class="text-3xl font-extrabold text-ink mt-1">{{ $totalProspek }}</p>
-            <p class="text-xs text-emerald-600 font-semibold mt-1">{{ $prospekBaru }} prospek baru</p>
+            <p class="text-xs text-brand-600 font-semibold mt-1">{{ $prospekBaru }} prospek baru</p>
         </div>
         <div class="card p-5">
             <p class="text-sm text-muted font-medium">Unit Terjual</p>
-            <p class="text-3xl font-extrabold text-emerald-600 mt-1">{{ $unitTerjual }}</p>
+            <p class="text-3xl font-extrabold text-brand-600 mt-1">{{ $unitTerjual }}</p>
             <p class="text-xs text-muted mt-1">dari {{ $totalUnit }} total unit</p>
         </div>
         <div class="card p-5">

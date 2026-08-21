@@ -1,4 +1,4 @@
--- =====================================================================
+﻿-- =====================================================================
 --  Database : web_gua3
 --  Website  : Griya Utama Asri 3 (perumahan)
 --  Versi    : 3.0 - PRD: prospek (leads), role, PDF per tipe, kategori foto
@@ -49,6 +49,7 @@ DROP TABLE IF EXISTS `brosur`;
 CREATE TABLE `brosur` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
+  `kategori` enum('brosur','pricelist') NOT NULL DEFAULT 'brosur',
   `file` varchar(255) NOT NULL,
   `cover` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
@@ -63,7 +64,7 @@ CREATE TABLE `brosur` (
 
 LOCK TABLES `brosur` WRITE;
 /*!40000 ALTER TABLE `brosur` DISABLE KEYS */;
-INSERT INTO `brosur` VALUES (1,'Brosur Griya Utama Asri 3 Depan','brosur/all-brosur.pdf','images/brosur/gua3-depan.png','Tampak depan Griya Utama Asri 3.',1,1,'2026-08-09 16:58:13','2026-08-09 16:58:13'),(2,'Brosur Griya Utama Asri 3 Belakang','brosur/all-brosur.pdf','images/brosur/gua3-belakang.png','Tampak belakang Griya Utama Asri 3.',1,2,'2026-08-09 16:58:13','2026-08-09 16:58:13');
+INSERT INTO `brosur` VALUES (1,'Brosur Griya Utama Asri 3 Depan','brosur','brosur/brosur-gua-3.pdf','images/brosur/gua3-depan.png','Tampak depan Griya Utama Asri 3.',1,1,'2026-08-09 16:58:13','2026-08-09 16:58:13'),(2,'Brosur Griya Utama Asri 3 Belakang','brosur','brosur/brosur-gua-3.pdf','images/brosur/gua3-belakang.png','Tampak belakang Griya Utama Asri 3.',1,2,'2026-08-09 16:58:13','2026-08-09 16:58:13');
 /*!40000 ALTER TABLE `brosur` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `foto_rumah`;
@@ -124,7 +125,7 @@ CREATE TABLE `pengaturan` (
 
 LOCK TABLES `pengaturan` WRITE;
 /*!40000 ALTER TABLE `pengaturan` DISABLE KEYS */;
-INSERT INTO `pengaturan` VALUES (1,'nama_perumahan','Griya Utama Asri 3','2026-08-09 16:58:13','2026-08-09 16:58:13'),(2,'nama_perusahaan','PT. Sinar Berlian Jaya Utama','2026-08-09 16:58:13','2026-08-09 16:58:13'),(3,'tagline','Hunian asri, modern, dan aman di kawasan strategis Banjarbaru dengan harga terjangkau.','2026-08-09 16:58:13','2026-08-09 16:58:13'),(4,'alamat','HQJ8+3X, Syamsudin Noor, Kec. Landasan Ulin, Kota Banjar Baru, Kalimantan Selatan 70721','2026-08-09 16:58:13','2026-08-09 16:58:13'),(5,'telepon','081348190849','2026-08-09 16:58:13','2026-08-09 16:58:13'),(6,'whatsapp','081348190849','2026-08-09 16:58:13','2026-08-09 16:58:13'),(7,'email','info@griyautamaasri3.id','2026-08-09 16:58:13','2026-08-09 16:58:13'),(8,'jam_operasional','Senin – Sabtu, 08.00 – 16.30 WITA','2026-08-09 16:58:13','2026-08-09 16:58:13'),(9,'deskripsi','Griya Utama Asri 3 merupakan kawasan perumahan modern dengan suasana hijau dan asri. Lokasi strategis dengan akses mudah ke pusat kota, dekat dengan fasilitas pendidikan, perbelanjaan, dan kesehatan.','2026-08-09 16:58:13','2026-08-09 16:58:13'),(10,'instagram','https://www.instagram.com/griyautamasri3?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==','2026-08-09 16:58:13','2026-08-09 16:58:13');
+INSERT INTO `pengaturan` VALUES (1,'nama_perumahan','Griya Utama Asri 3','2026-08-09 16:58:13','2026-08-09 16:58:13'),(2,'nama_perusahaan','PT. Sinar Berlian Jaya Utama','2026-08-09 16:58:13','2026-08-09 16:58:13'),(3,'tagline','Hunian asri, modern, dan aman di kawasan strategis Banjarbaru dengan harga terjangkau.','2026-08-09 16:58:13','2026-08-09 16:58:13'),(4,'alamat','HQJ8+3X, Syamsudin Noor, Kec. Landasan Ulin, Kota Banjar Baru, Kalimantan Selatan 70721','2026-08-09 16:58:13','2026-08-09 16:58:13'),(5,'telepon','081348190849','2026-08-09 16:58:13','2026-08-09 16:58:13'),(6,'whatsapp','6281348190849','2026-08-09 16:58:13','2026-08-09 16:58:13'),(7,'email','info@griyautamaasri3.id','2026-08-09 16:58:13','2026-08-09 16:58:13'),(8,'jam_operasional','Senin – Sabtu, 08.00 – 16.30 WITA','2026-08-09 16:58:13','2026-08-09 16:58:13'),(9,'deskripsi','Griya Utama Asri 3 merupakan kawasan perumahan modern dengan suasana hijau dan asri. Lokasi strategis dengan akses mudah ke pusat kota, dekat dengan fasilitas pendidikan, perbelanjaan, dan kesehatan.','2026-08-09 16:58:13','2026-08-09 16:58:13'),(10,'instagram','https://www.instagram.com/griyautamasri3?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==','2026-08-09 16:58:13','2026-08-09 16:58:13');
 /*!40000 ALTER TABLE `pengaturan` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `pengguna`;
@@ -147,7 +148,7 @@ CREATE TABLE `pengguna` (
 
 LOCK TABLES `pengguna` WRITE;
 /*!40000 ALTER TABLE `pengguna` DISABLE KEYS */;
-INSERT INTO `pengguna` VALUES (1,'Admin GUA 3','admin@gua3.test','admin','2026-08-09 16:58:12','$2y$12$nfrOFQzs5/hNQ6rGbyjlv.6hCjnyndAXKM6JYJ1WOX5MizZb6w0wC','bKbmHuD70M','2026-08-09 16:58:13','2026-08-09 16:58:13');
+INSERT INTO `pengguna` VALUES (1,'Admin','admin@gua3.test','admin','2026-08-09 16:58:12','$2y$12$9RHhMg8P71lDOJtv1VFvUeV0gWwPj.M71q43vy1MR7QGmFGzVr2wC','bKbmHuD70M','2026-08-09 16:58:13','2026-08-09 16:58:13');
 /*!40000 ALTER TABLE `pengguna` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `prospek`;
@@ -158,7 +159,7 @@ CREATE TABLE `prospek` (
   `tipe_rumah_id` bigint(20) unsigned DEFAULT NULL,
   `nama_lengkap` varchar(255) NOT NULL,
   `nomor_wa` varchar(255) NOT NULL,
-  `sumber` enum('brosur','pricelist','kontak') NOT NULL DEFAULT 'brosur',
+  `sumber` enum('brosur','sosmed','kontak') NOT NULL DEFAULT 'brosur',
   `status` enum('baru','dihubungi','deal','gugur') NOT NULL DEFAULT 'baru',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -197,6 +198,7 @@ CREATE TABLE `serah_terima` (
 
 LOCK TABLES `serah_terima` WRITE;
 /*!40000 ALTER TABLE `serah_terima` DISABLE KEYS */;
+INSERT INTO `serah_terima` VALUES (1,NULL,NULL,'images/Serah Terima (1).jpeg',NULL,'2026-08-14',1,1,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(2,NULL,NULL,'images/Serah Terima (2).jpeg',NULL,'2026-08-14',1,2,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(3,NULL,NULL,'images/Serah Terima (3).jpeg',NULL,'2026-08-14',1,3,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(4,NULL,NULL,'images/Serah Terima (4).jpeg',NULL,'2026-08-14',1,4,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(5,NULL,NULL,'images/Serah Terima (5).jpeg',NULL,'2026-08-14',1,5,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(6,NULL,NULL,'images/Serah Terima (6).jpeg',NULL,'2026-08-14',1,6,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(7,NULL,NULL,'images/Serah Terima (7).jpeg',NULL,'2026-08-14',1,7,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(8,NULL,NULL,'images/Serah Terima (8).jpeg',NULL,'2026-08-14',1,8,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(9,NULL,NULL,'images/Serah Terima (9).jpeg',NULL,'2026-08-14',1,9,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(10,NULL,NULL,'images/Serah Terima (10).jpeg',NULL,'2026-08-14',1,10,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(11,NULL,NULL,'images/Serah Terima (11).jpeg',NULL,'2026-08-14',1,11,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(12,NULL,NULL,'images/Serah Terima (12).jpeg',NULL,'2026-08-14',1,12,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(13,NULL,NULL,'images/Serah Terima (13).jpeg',NULL,'2026-08-14',1,13,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(14,NULL,NULL,'images/Serah Terima (14).jpeg',NULL,'2026-08-14',1,14,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(15,NULL,NULL,'images/Serah Terima (15).jpeg',NULL,'2026-08-14',1,15,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(16,NULL,NULL,'images/Serah Terima (16).jpeg',NULL,'2026-08-14',1,16,'2026-08-14 11:21:28','2026-08-14 11:21:28'),(17,NULL,NULL,'images/Serah Terima (17).jpeg',NULL,'2026-08-14',1,17,'2026-08-14 11:21:28','2026-08-14 11:21:28');
 /*!40000 ALTER TABLE `serah_terima` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `sesi`;
@@ -272,7 +274,7 @@ CREATE TABLE `tipe_rumah` (
 
 LOCK TABLES `tipe_rumah` WRITE;
 /*!40000 ALTER TABLE `tipe_rumah` DISABLE KEYS */;
-INSERT INTO `tipe_rumah` VALUES (1,'Tipe 36A / 72','tipe-36a-72','images/denah-tipe-36a.png','Tipe 36A: 2 Kamar Tidur, 1 Kamar Mandi, Ruang Tamu, Dapur, Teras, Carport. Luas tanah 72 m², luas bangunan 36 m².',NULL,NULL,72.00,36.00,2,1,185000000.00,5000000.00,1,1,'2026-08-09 16:58:13','2026-08-09 16:58:13'),(2,'Tipe 36B / 72','tipe-36b-72','images/denah-tipe-36b.png','Tipe 36B: 2 Kamar Tidur, 1 Kamar Mandi, Ruang Tamu, Dapur, Teras, Carport. Luas tanah 72 m², luas bangunan 36 m². Layout alternatif.',NULL,NULL,72.00,36.00,2,1,185000000.00,0.00,1,2,'2026-08-09 16:58:13','2026-08-09 16:58:13');
+INSERT INTO `tipe_rumah` VALUES (1,'Tipe 36','tipe-36','images/denah-tipe-36a.png','Tipe 36: 2 Kamar Tidur, 1 Kamar Mandi, Ruang Tamu, Dapur, Teras, Carport. Luas tanah 72 m², luas bangunan 36 m².',NULL,NULL,72.00,36.00,2,1,182000000.00,0.00,1,1,'2026-08-10 00:58:13','2026-08-10 00:58:13');
 /*!40000 ALTER TABLE `tipe_rumah` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `unit_rumah`;
@@ -295,7 +297,7 @@ CREATE TABLE `unit_rumah` (
 
 LOCK TABLES `unit_rumah` WRITE;
 /*!40000 ALTER TABLE `unit_rumah` DISABLE KEYS */;
-INSERT INTO `unit_rumah` VALUES (1,'A1',1,'terjual','2026-08-09 16:58:13','2026-08-09 16:58:13'),(2,'A2',1,'terjual','2026-08-09 16:58:13','2026-08-09 16:58:13'),(3,'A3',2,'tersedia','2026-08-09 16:58:13','2026-08-09 16:58:13'),(4,'B1',1,'dipesan','2026-08-09 16:58:13','2026-08-09 16:58:13'),(5,'B2',2,'terjual','2026-08-09 16:58:13','2026-08-09 16:58:13'),(6,'C1',1,'terjual','2026-08-09 16:58:13','2026-08-09 16:58:13'),(7,'C2',2,'tersedia','2026-08-09 16:58:13','2026-08-09 16:58:13'),(8,'C3',2,'terjual','2026-08-09 16:58:13','2026-08-09 16:58:13'),(9,'D1',1,'terjual','2026-08-09 16:58:13','2026-08-09 16:58:13'),(10,'D2',1,'tersedia','2026-08-09 16:58:13','2026-08-09 16:58:13'),(11,'E1',2,'tersedia','2026-08-09 16:58:13','2026-08-09 16:58:13');
+INSERT INTO `unit_rumah` VALUES ('A1',1,'tersedia',NOW(),NOW()),('A2',1,'tersedia',NOW(),NOW()),('A3',1,'tersedia',NOW(),NOW()),('A4',1,'tersedia',NOW(),NOW()),('A5',1,'tersedia',NOW(),NOW()),('A6',1,'tersedia',NOW(),NOW()),('A7',1,'tersedia',NOW(),NOW()),('A8',1,'tersedia',NOW(),NOW()),('A9',1,'tersedia',NOW(),NOW()),('A10',1,'tersedia',NOW(),NOW()),('B1',1,'terjual',NOW(),NOW()),('B2',1,'tersedia',NOW(),NOW()),('B3',1,'tersedia',NOW(),NOW()),('B4',1,'terjual',NOW(),NOW()),('B5',1,'tersedia',NOW(),NOW()),('B6',1,'tersedia',NOW(),NOW()),('B7',1,'tersedia',NOW(),NOW()),('B8',1,'terjual',NOW(),NOW()),('B9',1,'tersedia',NOW(),NOW()),('B10',1,'tersedia',NOW(),NOW()),('B11',1,'tersedia',NOW(),NOW()),('B12',1,'tersedia',NOW(),NOW()),('B13',1,'tersedia',NOW(),NOW()),('B14',1,'terjual',NOW(),NOW()),('B15',1,'tersedia',NOW(),NOW()),('B16',1,'tersedia',NOW(),NOW()),('B17',1,'tersedia',NOW(),NOW()),('B18',1,'terjual',NOW(),NOW()),('B19',1,'terjual',NOW(),NOW()),('B20',1,'tersedia',NOW(),NOW()),('B21',1,'terjual',NOW(),NOW()),('B22',1,'terjual',NOW(),NOW()),('B23',1,'terjual',NOW(),NOW()),('B24',1,'terjual',NOW(),NOW()),('B25',1,'tersedia',NOW(),NOW()),('B26',1,'tersedia',NOW(),NOW()),('B27',1,'tersedia',NOW(),NOW()),('B28',1,'terjual',NOW(),NOW()),('C1',1,'terjual',NOW(),NOW()),('C2',1,'terjual',NOW(),NOW()),('C3',1,'terjual',NOW(),NOW()),('C4',1,'terjual',NOW(),NOW()),('C5',1,'tersedia',NOW(),NOW()),('C6',1,'terjual',NOW(),NOW()),('C7',1,'terjual',NOW(),NOW()),('C8',1,'terjual',NOW(),NOW()),('C9',1,'tersedia',NOW(),NOW()),('C10',1,'tersedia',NOW(),NOW()),('C11',1,'tersedia',NOW(),NOW()),('C12',1,'tersedia',NOW(),NOW()),('C13',1,'tersedia',NOW(),NOW()),('C14',1,'tersedia',NOW(),NOW()),('C15',1,'tersedia',NOW(),NOW()),('C16',1,'tersedia',NOW(),NOW()),('C17',1,'tersedia',NOW(),NOW()),('C18',1,'tersedia',NOW(),NOW()),('C19',1,'tersedia',NOW(),NOW()),('C20',1,'tersedia',NOW(),NOW()),('C21',1,'tersedia',NOW(),NOW()),('D1',1,'terjual',NOW(),NOW()),('D2',1,'terjual',NOW(),NOW()),('D3',1,'terjual',NOW(),NOW()),('D4',1,'terjual',NOW(),NOW()),('D5',1,'terjual',NOW(),NOW()),('D6',1,'tersedia',NOW(),NOW()),('D7',1,'terjual',NOW(),NOW()),('D8',1,'terjual',NOW(),NOW()),('D9',1,'tersedia',NOW(),NOW()),('D10',1,'terjual',NOW(),NOW()),('D11',1,'terjual',NOW(),NOW()),('D12',1,'tersedia',NOW(),NOW()),('D13',1,'tersedia',NOW(),NOW()),('D14',1,'tersedia',NOW(),NOW()),('D15',1,'tersedia',NOW(),NOW()),('D16',1,'tersedia',NOW(),NOW()),('D17',1,'tersedia',NOW(),NOW()),('D18',1,'tersedia',NOW(),NOW()),('D19',1,'tersedia',NOW(),NOW()),('D20',1,'tersedia',NOW(),NOW()),('D21',1,'tersedia',NOW(),NOW()),('D22',1,'tersedia',NOW(),NOW()),('D23',1,'tersedia',NOW(),NOW()),('D24',1,'tersedia',NOW(),NOW()),('D25',1,'tersedia',NOW(),NOW()),('D26',1,'tersedia',NOW(),NOW());
 /*!40000 ALTER TABLE `unit_rumah` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

@@ -23,7 +23,7 @@
                 <input type="text" name="cari" value="{{ $cari }}" placeholder="contoh: Budi, 0812..." class="w-full rounded-xl border border-line px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600">
             </div>
             <div class="flex gap-2">
-                <button type="submit" class="rounded-xl bg-brand-600 hover:bg-brand-700 transition-colors text-white font-semibold text-sm px-5 py-2.5">Filter</button>
+                <button type="submit" class="btn btn-primary btn-sm w-full sm:w-auto">Filter</button>
                 @if ($status || $dari || $sampai || $cari)
                     <a href="{{ route('admin.prospek.index') }}" class="rounded-xl ring-1 ring-line px-4 py-2.5 text-sm font-semibold text-muted hover:text-ink transition-colors">Reset</a>
                 @endif
@@ -33,7 +33,7 @@
         <div class="mt-5 flex items-center justify-between">
             <p class="text-sm text-muted">{{ $prospek->total() }} prospek ditemukan</p>
             <a href="{{ route('admin.prospek.export', request()->only(['status', 'dari', 'sampai', 'cari'])) }}"
-               class="rounded-xl bg-emerald-600 hover:bg-emerald-700 transition-colors text-white text-sm font-semibold px-5 py-2.5 inline-flex items-center gap-2">
+               class="btn btn-sm bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 hover:bg-emerald-100 transition-colors inline-flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
                 Export Excel (CSV)
             </a>
@@ -61,7 +61,7 @@
                             <td class="py-3 px-4">{{ $p->nomor_wa }}</td>
                             <td class="py-3 px-4 text-muted">{{ $p->tipeRumah?->name ?? '-' }}</td>
                             <td class="py-3 px-4">
-                                <span class="rounded-full px-2.5 py-1 text-xs font-bold bg-brand-50 text-brand-600 ring-1 ring-brand-100">{{ $p->sumber }}</span>
+                                <span class="rounded-full px-2.5 py-1 text-xs font-bold bg-brand-50 text-brand-600 ring-1 ring-brand-100">{{ ['brosur' => 'Brosur / Iklan', 'sosmed' => 'Media Sosial', 'kontak' => 'Kontak / Referensi'][$p->sumber] ?? $p->sumber }}</span>
                             </td>
                             <td class="py-3 px-4">
                                 <form method="POST" action="{{ route('admin.prospek.status', $p) }}" class="flex items-center gap-2">

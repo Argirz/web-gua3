@@ -65,7 +65,7 @@
             </div>
 
             <div class="flex items-center gap-3 pt-2">
-                <button type="submit" class="rounded-xl bg-brand-600 hover:bg-brand-700 transition-colors text-white font-semibold px-6 py-2.5 text-sm">Simpan Pengaturan</button>
+                <button type="submit" class="btn btn-primary btn-sm px-6">Simpan Pengaturan</button>
             </div>
         </form>
     </div>

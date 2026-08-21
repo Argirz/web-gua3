@@ -27,9 +27,9 @@
             <form method="POST" action="{{ route('admin.login.proses') }}" class="space-y-5">
                 @csrf
                 <div>
-                    <label for="email" class="block text-sm font-semibold text-ink mb-1.5">Email</label>
-                    <input type="email" name="email" id="email" required autofocus
-                           value="{{ old('email') }}"
+                    <label for="username" class="block text-sm font-semibold text-ink mb-1.5">Username / Email</label>
+                    <input type="text" name="username" id="username" required autofocus
+                           value="{{ old('username') }}"
                            class="w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600">
                 </div>
                 <div>
@@ -42,7 +42,7 @@
                     Ingat saya
                 </label>
                 <button type="submit"
-                        class="w-full rounded-xl bg-brand-600 hover:bg-brand-700 transition-colors text-white font-bold py-3 text-sm">
+                        class="btn btn-primary w-full py-3 text-sm">
                     Masuk
                 </button>
             </form>

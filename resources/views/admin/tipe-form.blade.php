@@ -1,4 +1,7 @@
 <x-admin-layout judul="{{ $tipeRumah ? 'Edit Tipe ' . $tipeRumah->name : 'Tambah Tipe Rumah' }}">
+    @php
+        $fmtLuas = fn ($v) => $v == (int) $v ? (int) $v : rtrim(rtrim(number_format($v, 1, '.', ''), '0'), '.');
+    @endphp
     <div class="card p-5 sm:p-8 max-w-3xl">
         <form method="POST" action="{{ $tipeRumah ? route('admin.tipe.perbarui', $tipeRumah) : route('admin.tipe.simpan') }}"
               enctype="multipart/form-data" class="space-y-5">
@@ -28,12 +31,12 @@
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wide text-muted mb-1.5">Luas Tanah (m²) *</label>
-                    <input type="number" step="0.01" min="0" name="land_area" required value="{{ old('land_area', $tipeRumah?->land_area) }}"
+                    <input type="number" step="0.01" min="0" name="land_area" required value="{{ old('land_area', $tipeRumah?->land_area !== null ? $fmtLuas($tipeRumah->land_area) : '') }}"
                            class="w-full rounded-xl border border-line px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600">
                 </div>
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wide text-muted mb-1.5">Luas Bangunan (m²) *</label>
-                    <input type="number" step="0.01" min="0" name="building_area" required value="{{ old('building_area', $tipeRumah?->building_area) }}"
+                    <input type="number" step="0.01" min="0" name="building_area" required value="{{ old('building_area', $tipeRumah?->building_area !== null ? $fmtLuas($tipeRumah->building_area) : '') }}"
                            class="w-full rounded-xl border border-line px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600">
                 </div>
                 <div>
@@ -48,12 +51,12 @@
                 </div>
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wide text-muted mb-1.5">Harga (Rp) *</label>
-                    <input type="number" min="0" name="price" required value="{{ old('price', $tipeRumah?->price) }}"
+                    <input type="number" min="0" name="price" required value="{{ old('price', $tipeRumah?->price !== null ? (int) $tipeRumah->price : '') }}"
                            class="w-full rounded-xl border border-line px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600">
                 </div>
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wide text-muted mb-1.5">Diskon (Rp)</label>
-                    <input type="number" min="0" name="discount" value="{{ old('discount', $tipeRumah?->discount) }}"
+                    <input type="number" min="0" name="discount" value="{{ old('discount', $tipeRumah?->discount !== null ? (int) $tipeRumah->discount : '') }}"
                            class="w-full rounded-xl border border-line px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-600">
                 </div>
             </div>
@@ -100,7 +103,7 @@
             </label>
 
             <div class="flex items-center gap-3 pt-2">
-                <button type="submit" class="rounded-xl bg-brand-600 hover:bg-brand-700 transition-colors text-white font-semibold px-6 py-2.5 text-sm">
+                <button type="submit" class="btn btn-primary btn-sm px-6">
                     {{ $tipeRumah ? 'Simpan Perubahan' : 'Simpan Tipe' }}
                 </button>
                 <a href="{{ route('admin.tipe.index') }}" class="text-sm text-muted hover:text-ink font-semibold">Batal</a>

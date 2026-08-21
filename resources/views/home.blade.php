@@ -1,11 +1,8 @@
 <x-layout :$pengaturan>
     @include('partials.hero')
 
-    {{-- Foto Progress --}}
-    @include('partials.section-done-carousel')
-
-    {{-- Foto Rumah --}}
-    @include('partials.section-galeri')
+    {{-- Foto Progress + Foto Rumah (slide) --}}
+    @include('partials.section-slides')
 
     {{-- Dokumentasi Serah Terima Kunci --}}
     @include('partials.section-handover')
@@ -30,4 +27,7 @@
 
     {{-- Kontak / Penutup --}}
     @include('partials.section-kontak')
+
+    {{-- Formulir Minat Prospek --}}
+    @include('partials.section-prospek')
 </x-layout>

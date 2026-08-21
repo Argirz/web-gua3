@@ -55,7 +55,7 @@
             </label>
 
             <div class="flex items-center gap-3 pt-2">
-                <button type="submit" class="rounded-xl bg-brand-600 hover:bg-brand-700 transition-colors text-white font-semibold px-6 py-2.5 text-sm">
+                <button type="submit" class="btn btn-primary btn-sm px-6">
                     {{ $serahTerima ? 'Simpan Perubahan' : 'Simpan Dokumentasi' }}
                 </button>
                 <a href="{{ route('admin.serah_terima.index') }}" class="text-sm text-muted hover:text-ink font-semibold">Batal</a>

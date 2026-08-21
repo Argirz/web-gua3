@@ -1,17 +1,23 @@
-<x-admin-layout judul="Manajemen Foto Rumah">
-    <div class="flex items-center justify-between">
+<x-admin-layout judul="Manajemen Foto">
+    @php
+        $labelKategori = ['unit' => 'Unit', 'serah_terima' => 'Serah Terima', 'siteplan' => 'Siteplan'];
+    @endphp
+    <x-slot name="headerAction">
+        <a href="{{ route('admin.foto.create') }}" class="btn bg-white text-brand-900 hover:bg-brand-50 shadow-sm text-sm px-4 py-2">+ Tambah Foto</a>
+    </x-slot>
+
+    <div class="mb-4">
         <form method="GET" action="{{ route('admin.foto.index') }}" class="flex items-center gap-2">
-            <select name="kategori" onchange="this.form.submit()" class="rounded-xl border border-line px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-600">
+            <select name="kategori" onchange="this.form.submit()" class="rounded-xl border border-line px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-600 shadow-sm">
                 <option value="">Semua kategori</option>
                 @foreach (['unit', 'serah_terima', 'siteplan'] as $k)
-                    <option value="{{ $k }}" @selected($kategori === $k)>{{ ucfirst($k) }}</option>
+                    <option value="{{ $k }}" @selected($kategori === $k)>{{ $labelKategori[$k] }}</option>
                 @endforeach
             </select>
             @if ($kategori)
-                <a href="{{ route('admin.foto.index') }}" class="text-sm text-muted hover:text-ink font-semibold">Reset</a>
+                <a href="{{ route('admin.foto.index') }}" class="text-sm text-muted hover:text-ink font-semibold bg-white px-3 py-1.5 rounded-xl ring-1 ring-line shadow-sm">Reset</a>
             @endif
         </form>
-        <a href="{{ route('admin.foto.create') }}" class="rounded-xl bg-brand-600 hover:bg-brand-700 transition-colors text-white font-semibold text-sm px-5 py-2.5">+ Tambah Foto</a>
     </div>
 
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -23,7 +29,7 @@
                 <div class="p-4 sm:p-5">
                     <h3 class="font-semibold text-ink text-sm">{{ $f->title }}</h3>
                     <p class="text-xs text-muted mt-1">
-                        {{ ucfirst($f->kategori) }} @if ($f->tipeRumah) · {{ $f->tipeRumah->name }} @endif
+                        {{ $labelKategori[$f->kategori] ?? $f->kategori }} @if ($f->tipeRumah) · {{ $f->tipeRumah->name }} @endif
                         @if (!$f->active) · <span class="text-rose-600 font-semibold">nonaktif</span> @endif
                     </p>
                     <div class="flex items-center justify-between mt-3 pt-3 border-t border-line">

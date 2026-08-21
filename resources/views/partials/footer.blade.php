@@ -16,7 +16,7 @@
 @endphp
 
 <footer class="bg-brand-950 text-white/40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-16">
+    <div class="w-full px-4 sm:px-6 lg:px-8 py-14 lg:py-16">
         <div class="grid gap-10 md:grid-cols-3 md:gap-8">
             {{-- Brand --}}
             <div>
@@ -27,7 +27,7 @@
                         <p class="text-xs text-white/30">{{ $pengaturan['kabupaten'] ?? 'Banjar Baru, Kalimantan Selatan' }}</p>
                     </div>
                 </div>
-                <p class="mt-5 text-sm leading-relaxed max-w-xs">{{ $pengaturan['tagline'] ?? 'Hunian modern dengan suasana asri dan hijau.' }}</p>
+                <p class="mt-5 text-sm leading-relaxed max-w-xs">Hadirkan kenyamanan hidup sejati di Banjarbaru melalui perpaduan lingkungan asri, desain modern, dan keamanan terjamin.</p>
             </div>
 
             {{-- Menu --}}
@@ -38,6 +38,7 @@
                         <li><a href="#{{ $id }}" class="hover:text-gold-300 transition-colors">{{ $label }}</a></li>
                     @endforeach
                     <li><a href="#kontak" class="hover:text-gold-300 transition-colors">Kontak</a></li>
+                    <li><a href="#minat" class="hover:text-gold-300 transition-colors">Formulir Minat</a></li>
                 </ul>
             </div>
 

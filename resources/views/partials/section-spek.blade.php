@@ -1,8 +1,8 @@
-<section id="spek" class="py-20 lg:py-28 bg-brand-50/50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-14 anim-hidden text-center">
-            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-ink">Spesifikasi Bangunan</h2>
-            <p class="mt-5 text-muted max-w-2xl mx-auto leading-relaxed">Setiap unit dibangun dengan material pilihan dan mengikuti standar konstruksi terbaik. Kenali detail spesifikasi yang kami gunakan.</p>
+<section id="spek" class="py-20 lg:py-32 bg-brand-50/50">
+    <div class="w-full px-4 sm:px-6 lg:px-8">
+        <div class="mb-14 lg:mb-20 anim-hidden flex flex-col items-center text-center">
+            <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-ink">Spesifikasi Bangunan</h2>
+            <p class="mt-5 text-muted max-w-2xl mx-auto leading-relaxed text-sm sm:text-base">Dibangun dengan material bermutu tinggi dan standar konstruksi terbaik demi ketahanan jangka panjang.</p>
         </div>
 
         @if ($spesifikasi->count())

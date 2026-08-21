@@ -17,7 +17,7 @@ class ProspekController extends Controller
             'nama_lengkap' => ['required', 'string', 'max:100'],
             'nomor_wa' => ['required', 'string', 'regex:/^(08|62)[0-9]{8,12}$/'],
             'tipe_rumah_id' => ['nullable', 'integer', 'exists:tipe_rumah,id'],
-            'sumber' => ['required', 'in:brosur,pricelist,kontak'],
+            'sumber' => ['required', 'in:brosur,sosmed,kontak'],
         ]);
 
         $prospek = Prospek::create($validated);

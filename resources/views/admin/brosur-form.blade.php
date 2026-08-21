@@ -1,4 +1,4 @@
-<x-admin-layout judul="{{ $brosur ? 'Edit ' . $brosur->title : 'Tambah Brosur / PDF' }}">
+<x-admin-layout judul="{{ $brosur ? 'Edit ' . $brosur->title : 'Tambah Brosur' }}">
     <div class="card p-5 sm:p-8 max-w-2xl">
         <form method="POST" action="{{ $brosur ? route('admin.brosur.perbarui', $brosur) : route('admin.brosur.simpan') }}"
               enctype="multipart/form-data" class="space-y-5">
@@ -57,7 +57,7 @@
             </label>
 
             <div class="flex items-center gap-3 pt-2">
-                <button type="submit" class="rounded-xl bg-brand-600 hover:bg-brand-700 transition-colors text-white font-semibold px-6 py-2.5 text-sm">
+                <button type="submit" class="btn btn-primary btn-sm px-6">
                     {{ $brosur ? 'Simpan Perubahan' : 'Simpan Berkas' }}
                 </button>
                 <a href="{{ route('admin.brosur.index') }}" class="text-sm text-muted hover:text-ink font-semibold">Batal</a>
