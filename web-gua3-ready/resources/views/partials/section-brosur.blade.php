@@ -1,17 +1,12 @@
 @php
     $pdfUrl = $brosur->count() ? asset('storage/' . $brosur->first()->file) : '';
-    $doneImages = [
-        'images/1 done.png',
-        'images/2 done.png',
-        'images/4 done.png',
-        'images/16 done.png',
-        'images/17 done.png',
-        'images/25 done.png',
-        'images/26 done.png',
-    ];
+    $doneImages = [];
+    foreach (range(1, 7) as $i) {
+        $doneImages[] = "images/brosur/Brosur {$i}.png";
+    }
     $slides = $brosur->map(fn ($b) => (object) ['cover' => asset($b->cover), 'title' => $b->title])->values();
     foreach ($doneImages as $img) {
-        $slides->push((object) ['cover' => asset($img), 'title' => 'Foto Progress Griya Utama Asri 3']);
+        $slides->push((object) ['cover' => asset($img), 'title' => 'Brosur Griya Utama Asri 3']);
     }
 @endphp
 

@@ -41,7 +41,7 @@ class TipeRumah extends Model
 
     public function units(): HasMany
     {
-        return $this->hasMany(UnitRumah::class);
+        return $this->hasMany(UnitRumah::class, 'unit_type_id');
     }
 
     public function fotoRumah(): HasMany

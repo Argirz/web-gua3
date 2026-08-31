@@ -52,7 +52,7 @@ class TipeRumahController extends Controller
             $data['pricelist_pdf'] = BerkasPdf::simpan($request->file('pricelist_pdf'), 'tipe');
         }
 
-        $data['slug'] = $data['slug'] ?: Str::slug($data['name']);
+        $data['slug'] = ($data['slug'] ?? '') ?: Str::slug($data['name']);
         $data['active'] = $request->boolean('active');
         $data['sort_order'] = $data['sort_order'] ?? 0;
 
@@ -98,7 +98,7 @@ class TipeRumahController extends Controller
             $data['pricelist_pdf'] = BerkasPdf::simpan($request->file('pricelist_pdf'), 'tipe');
         }
 
-        $data['slug'] = $data['slug'] ?: Str::slug($data['name']);
+        $data['slug'] = ($data['slug'] ?? '') ?: Str::slug($data['name']);
         $data['active'] = $request->boolean('active');
         $data['sort_order'] = $data['sort_order'] ?? 0;
 

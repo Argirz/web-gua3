@@ -34,6 +34,7 @@ Route::middleware(['auth', 'panel'])->prefix('admin')->name('admin.')->group(fun
 
     Route::get('/prospek', [AdminProspekController::class, 'index'])->name('prospek.index');
     Route::get('/prospek/export', [AdminProspekController::class, 'export'])->name('prospek.export');
+    Route::get('/prospek/{prospek}/baca', [AdminProspekController::class, 'tandaiDibaca'])->name('prospek.baca');
     Route::patch('/prospek/{prospek}/status', [AdminProspekController::class, 'ubahStatus'])->name('prospek.status');
     Route::delete('/prospek/{prospek}', [AdminProspekController::class, 'hapus'])->name('prospek.hapus');
 

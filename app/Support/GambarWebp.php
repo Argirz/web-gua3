@@ -12,13 +12,15 @@ class GambarWebp
 {
     public static function simpan(UploadedFile $file, string $folder, int $kualitas = 80): string
     {
-        if (env('CLOUDINARY_URL')) {
+        if (config('filesystems.disks.cloudinary.url')) {
             try {
-                return Cloudinary::upload($file->getRealPath(), [
+                $hasil = Cloudinary::uploadApi()->upload($file->getRealPath(), [
                     'folder' => 'web-gua3/' . $folder,
                     'format' => 'webp',
                     'quality' => 'auto',
-                ])->getSecurePath();
+                ]);
+
+                return $hasil['secure_url'];
             } catch (\Exception $e) {
                 throw new RuntimeException('Gagal mengunggah gambar ke Cloudinary: ' . $e->getMessage());
             }
@@ -80,7 +82,7 @@ class GambarWebp
 
         if (str_starts_with($path, 'http')) {
             // Jika ini URL Cloudinary, ekstrak public ID dan hapus
-            if (env('CLOUDINARY_URL') && str_contains($path, 'cloudinary.com')) {
+            if (config('filesystems.disks.cloudinary.url') && str_contains($path, 'cloudinary.com')) {
                 try {
                     $parts = explode('/', parse_url($path, PHP_URL_PATH));
                     $filename = end($parts);
@@ -92,7 +94,7 @@ class GambarWebp
                     if ($uploadIndex !== false && count($parts) > $uploadIndex + 2) {
                         $folders = array_slice($parts, $uploadIndex + 2, -1);
                         $fullPublicId = implode('/', $folders) . '/' . $publicId;
-                        Cloudinary::destroy($fullPublicId);
+                        Cloudinary::uploadApi()->destroy($fullPublicId);
                     }
                 } catch (\Exception $e) {
                     // Abaikan error saat menghapus di Cloudinary

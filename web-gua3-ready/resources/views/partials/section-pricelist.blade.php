@@ -13,9 +13,6 @@
                     @endphp
                     <div class="card p-6 sm:p-8 bg-white flex flex-col justify-between shadow-xl shadow-black/20 ring-1 ring-white/10 hover:-translate-y-2 transition-transform duration-500">
                         <div>
-                            <div class="inline-block px-3 py-1 bg-brand-50 text-brand-700 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-full mb-4">
-                                Tipe Rumah
-                            </div>
                             <h3 class="font-display text-3xl sm:text-4xl font-bold text-ink mb-6">{{ $pl->title }}</h3>
                             
                             <div class="grid grid-cols-2 gap-3 sm:gap-4 mb-8">

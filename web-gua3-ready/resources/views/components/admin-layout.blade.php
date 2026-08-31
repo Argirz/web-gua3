@@ -89,7 +89,7 @@
                 
                 @php
                     $newProspek = \App\Models\Prospek::where('status', 'baru')->latest()->take(5)->get();
-                    $newProspekCount = \App\Models\Prospek::where('status', 'baru')->count();
+                    $unreadProspekCount = \App\Models\Prospek::where('status', 'baru')->whereNull('dibaca_at')->count();
                 @endphp
 
                 <!-- Profile / Notification -->
@@ -99,31 +99,38 @@
                     <div x-data="{ open: false }" class="relative">
                         <button @click="open = !open" @click.outside="open = false" type="button" class="relative p-2 rounded-xl text-muted hover:text-ink hover:bg-brand-50 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
-                            @if($newProspekCount > 0)
-                                <span class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5">
-                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500 ring-2 ring-white"></span>
-                                </span>
-                            @endif
+                            <span id="notif-dot" @if($unreadProspekCount === 0) hidden @endif class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500 ring-2 ring-white"></span>
+                            </span>
                         </button>
                         
                         <div x-show="open" x-transition.opacity.duration.200ms style="display: none;" class="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl ring-1 ring-black/5 overflow-hidden z-50">
                             <div class="px-4 py-3 border-b border-line flex justify-between items-center bg-brand-50/50">
                                 <h3 class="text-sm font-bold text-ink">Notifikasi</h3>
-                                @if($newProspekCount > 0)
-                                    <span class="bg-rose-100 text-rose-700 text-[10px] font-bold px-2 py-0.5 rounded-full">{{ $newProspekCount }} Baru</span>
-                                @endif
+                                <span id="notif-unread-badge" data-count="{{ $unreadProspekCount }}" @if($unreadProspekCount === 0) hidden @endif class="bg-rose-100 text-rose-700 text-[10px] font-bold px-2 py-0.5 rounded-full">{{ $unreadProspekCount }} Belum dibaca</span>
                             </div>
-                            <div class="max-h-[300px] overflow-y-auto">
-                                @forelse($newProspek as $np)
-                                    <a href="{{ route('admin.prospek.index', ['cari' => $np->nomor_wa]) }}" class="block px-4 py-3 border-b border-line last:border-0 hover:bg-brand-50/50 transition-colors">
-                                        <p class="text-sm font-semibold text-ink">{{ $np->nama_lengkap }}</p>
-                                        <p class="text-xs text-muted mt-0.5">Prospek baru masuk via {{ $np->sumber }}</p>
-                                        <p class="text-[10px] text-muted mt-1">{{ $np->created_at?->diffForHumans() }}</p>
-                                    </a>
-                                @empty
-                                    <div class="px-4 py-6 text-center text-sm text-muted">Belum ada notifikasi baru.</div>
-                                @endforelse
+                            <div id="notif-list" class="max-h-[300px] overflow-y-auto">
+                                @foreach ($newProspek as $np)
+                                    @php $belumDibaca = $np->dibaca_at === null; @endphp
+                                    <div data-notif-item data-belum="{{ $belumDibaca ? 1 : 0 }}" class="flex items-start gap-2 pl-4 pr-2 py-3 border-b border-line last:border-0 transition-colors {{ $belumDibaca ? 'bg-rose-50/50' : '' }} hover:bg-brand-50/50">
+                                        <a href="{{ route('admin.prospek.baca', $np) }}" class="flex items-start gap-3 flex-1 min-w-0">
+                                            <span class="mt-1.5 h-2 w-2 rounded-full shrink-0 {{ $belumDibaca ? 'bg-rose-500' : 'bg-line' }}"></span>
+                                            <span class="min-w-0">
+                                                <p class="text-sm font-semibold text-ink truncate">{{ $np->nama_lengkap }}</p>
+                                                <p class="text-xs text-muted mt-0.5">Prospek baru masuk via {{ $np->sumber }}</p>
+                                                <p class="text-[10px] mt-1">
+                                                    <span class="{{ $belumDibaca ? 'text-rose-600 font-bold' : 'text-muted' }}">{{ $belumDibaca ? 'Belum dibaca' : 'Sudah dibaca' }}</span>
+                                                    <span class="text-muted">· {{ $np->created_at?->diffForHumans() }}</span>
+                                                </p>
+                                            </span>
+                                        </a>
+                                        <button type="button" data-hapus-notif data-url="{{ route('admin.prospek.hapus', $np) }}" title="Hapus notifikasi ini" class="p-1.5 rounded-lg text-muted hover:text-rose-600 hover:bg-rose-50 transition-colors shrink-0">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                                        </button>
+                                    </div>
+                                @endforeach
+                                <div id="notif-empty" @if($newProspek->count()) hidden @endif class="px-4 py-6 text-center text-sm text-muted">Belum ada notifikasi baru.</div>
                             </div>
                             <a href="{{ route('admin.prospek.index', ['status' => 'baru']) }}" class="block px-4 py-2.5 text-center text-xs font-semibold text-brand-600 hover:bg-brand-50 transition-colors border-t border-line">
                                 Lihat Semua Prospek Baru
@@ -188,6 +195,46 @@
     </div>
 
     <script>
+    document.addEventListener('click', async (e) => {
+        const btn = e.target.closest('[data-hapus-notif]');
+        if (!btn) return;
+        if (!confirm('Hapus notifikasi ini?')) return;
+        btn.disabled = true;
+        try {
+            const res = await fetch(btn.dataset.url, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json',
+                },
+            });
+            if (!res.ok) throw new Error('gagal');
+            const item = btn.closest('[data-notif-item]');
+            const belum = item.dataset.belum === '1';
+            item.remove();
+            const badge = document.getElementById('notif-unread-badge');
+            const dot = document.getElementById('notif-dot');
+            if (belum && badge) {
+                const sisa = Math.max(0, parseInt(badge.dataset.count || '0', 10) - 1);
+                badge.dataset.count = sisa;
+                badge.textContent = sisa + ' Belum dibaca';
+                if (sisa === 0) {
+                    badge.hidden = true;
+                    if (dot) dot.hidden = true;
+                }
+            }
+            const list = document.getElementById('notif-list');
+            const kosong = document.getElementById('notif-empty');
+            if (list && kosong && !list.querySelector('[data-notif-item]')) {
+                kosong.classList.remove('hidden');
+            }
+        } catch (err) {
+            alert('Gagal menghapus notifikasi.');
+            btn.disabled = false;
+        }
+    });
+
     (function () {
         const sidebar = document.getElementById('admin-sidebar');
         const backdrop = document.getElementById('admin-backdrop');

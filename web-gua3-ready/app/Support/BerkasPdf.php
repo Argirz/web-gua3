@@ -17,12 +17,14 @@ class BerkasPdf
             throw new RuntimeException('Berkas harus berformat PDF.');
         }
 
-        if (env('CLOUDINARY_URL')) {
+        if (config('filesystems.disks.cloudinary.url')) {
             try {
-                return Cloudinary::upload($file->getRealPath(), [
+                $hasil = Cloudinary::uploadApi()->upload($file->getRealPath(), [
                     'folder' => 'web-gua3/' . $folder,
-                    'resource_type' => 'raw'
-                ])->getSecurePath();
+                    'resource_type' => 'raw',
+                ]);
+
+                return $hasil['secure_url'];
             } catch (\Exception $e) {
                 throw new RuntimeException('Gagal mengunggah PDF ke Cloudinary: ' . $e->getMessage());
             }
@@ -39,7 +41,7 @@ class BerkasPdf
         if (!$path) return;
 
         if (str_starts_with($path, 'http')) {
-            if (env('CLOUDINARY_URL') && str_contains($path, 'cloudinary.com')) {
+            if (config('filesystems.disks.cloudinary.url') && str_contains($path, 'cloudinary.com')) {
                 try {
                     $parts = explode('/', parse_url($path, PHP_URL_PATH));
                     $filename = end($parts);
@@ -49,7 +51,7 @@ class BerkasPdf
                     if ($uploadIndex !== false && count($parts) > $uploadIndex + 2) {
                         $folders = array_slice($parts, $uploadIndex + 2, -1);
                         $fullPublicId = implode('/', $folders) . '/' . $filename;
-                        Cloudinary::destroy($fullPublicId, ['resource_type' => 'raw']);
+                        Cloudinary::uploadApi()->destroy($fullPublicId, ['resource_type' => 'raw']);
                     }
                 } catch (\Exception $e) {
                     // Abaikan

@@ -106,7 +106,7 @@ CREATE TABLE `migrasi` (
 
 LOCK TABLES `migrasi` WRITE;
 /*!40000 ALTER TABLE `migrasi` DISABLE KEYS */;
-INSERT INTO `migrasi` VALUES (1,'0001_01_01_000000_create_pengguna_table',1),(2,'2026_01_01_000001_create_pengaturan_table',1),(3,'2026_01_01_000002_create_galeri_table',1),(4,'2026_01_01_000003_create_tipe_rumah_table',1),(5,'2026_01_01_000004_create_unit_rumah_table',1),(6,'2026_01_01_000005_create_serah_terima_table',1),(7,'2026_01_01_000006_create_spesifikasi_table',1),(8,'2026_01_01_000007_create_brosur_table',1),(9,'2026_01_01_000008_tambah_foto_rumah_prospek_dan_role_pengguna',2);
+INSERT INTO `migrasi` VALUES (1,'0001_01_01_000000_create_pengguna_table',1),(2,'2026_01_01_000001_create_pengaturan_table',1),(3,'2026_01_01_000002_create_galeri_table',1),(4,'2026_01_01_000003_create_tipe_rumah_table',1),(5,'2026_01_01_000004_create_unit_rumah_table',1),(6,'2026_01_01_000005_create_serah_terima_table',1),(7,'2026_01_01_000006_create_spesifikasi_table',1),(8,'2026_01_01_000007_create_brosur_table',1),(9,'2026_01_01_000008_tambah_foto_rumah_prospek_dan_role_pengguna',2),(10,'2026_01_01_000009_tambah_kategori_pada_brosur',2),(11,'2026_01_01_000010_tambah_dibaca_at_pada_prospek',2);
 /*!40000 ALTER TABLE `migrasi` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `pengaturan`;
@@ -161,6 +161,7 @@ CREATE TABLE `prospek` (
   `nomor_wa` varchar(255) NOT NULL,
   `sumber` enum('brosur','sosmed','kontak') NOT NULL DEFAULT 'brosur',
   `status` enum('baru','dihubungi','deal','gugur') NOT NULL DEFAULT 'baru',
+  `dibaca_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),

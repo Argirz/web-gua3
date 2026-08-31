@@ -6,14 +6,14 @@
     <title>Masuk · Panel Admin · Griya Utama Asri 3</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-brand-950 min-h-screen flex items-center justify-center p-4 font-sans antialiased">
+<body class="bg-brand-50 min-h-screen flex items-center justify-center p-4 font-sans antialiased">
     <div class="w-full max-w-md">
         <div class="text-center mb-8">
-            <img src="{{ asset('images/logo-gua3.jpg') }}" alt="Logo GUA 3" class="w-16 h-16 rounded-full object-cover ring-4 ring-white/15 mx-auto mb-4">
-            <h1 class="font-display text-2xl font-semibold">Griya Utama<br><em class="text-gradient font-medium not-italic">Asri 3</em></h1>
+            <img src="{{ asset('images/logo-gua3.jpg') }}" alt="Logo GUA 3" class="w-16 h-16 rounded-full object-cover ring-4 ring-brand-200 mx-auto mb-4">
+            <h1 class="font-display text-2xl font-semibold text-ink">Griya Utama<br><em class="font-medium not-italic">Asri 3</em></h1>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-2xl shadow-black/30 p-6 sm:p-8">
+        <div class="bg-white rounded-2xl shadow-xl shadow-brand-950/10 ring-1 ring-line p-6 sm:p-8">
             @if ($errors->any())
                 <div class="mb-5 rounded-xl bg-rose-50 ring-1 ring-rose-200 text-rose-800 px-4 py-3 text-sm">
                     <ul class="list-disc list-inside space-y-1">

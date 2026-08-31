@@ -19,6 +19,15 @@ class ProspekController extends Controller
         ]);
     }
 
+    public function tandaiDibaca(Prospek $prospek)
+    {
+        $prospek->update(['dibaca_at' => now()]);
+
+        return redirect()
+            ->route('admin.prospek.index', ['cari' => $prospek->nomor_wa])
+            ->with('sukses', 'Notifikasi ditandai sudah dibaca.');
+    }
+
     public function ubahStatus(Request $request, Prospek $prospek)
     {
         $validated = $request->validate([
