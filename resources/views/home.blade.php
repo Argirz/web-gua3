@@ -1,33 +1,24 @@
 <x-layout :$pengaturan>
+    {{-- Hero Split Screen Showcase (fixed: badge/trust-row/Tersedia removed, navbar always visible) --}}
     @include('partials.hero')
 
-    {{-- Foto Progress + Foto Rumah (slide) --}}
-    @include('partials.section-slides')
+    {{-- Availability & Siteplan Live status + interactive selector --}}
+    @include('partials.section-availability')
 
-    {{-- Dokumentasi Serah Terima Kunci --}}
+    {{-- Foto Rumah & Lingkungan (tampil selama ada data) --}}
+    @if($foto_rumah->count())
+        @include('partials.section-slides')
+    @endif
+
+    {{-- Specs Feature cards --}}
+    @include('partials.section-specs')
+
+    {{-- Legalitas, Brosur & Pricelist --}}
+    @include('partials.section-legalitas')
+
+    {{-- Serah Terima Masonry social proof --}}
     @include('partials.section-handover')
 
-    {{-- Siteplan --}}
-    @include('partials.section-siteplan')
-
-    {{-- Rumah Terjual --}}
-    @include('partials.section-terjual')
-
-    {{-- Spek --}}
-    @include('partials.section-spek')
-
-    {{-- Brosur --}}
-    @include('partials.section-brosur')
-
-    {{-- Pricelist --}}
-    @include('partials.section-pricelist')
-
-    {{-- Lokasi / Google Maps --}}
-    @include('partials.section-lokasi')
-
-    {{-- Kontak / Penutup --}}
-    @include('partials.section-kontak')
-
-    {{-- Formulir Minat Prospek --}}
-    @include('partials.section-prospek')
+    {{-- Location + Formulir Combined --}}
+    @include('partials.section-location')
 </x-layout>

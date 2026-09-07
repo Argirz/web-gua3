@@ -5,7 +5,7 @@
 
 <section id="beranda" class="hero-gradient relative overflow-hidden text-white min-h-screen flex flex-col">
     <div class="absolute inset-0">
-        <video id="hero-vid" autoplay muted loop playsinline preload="metadata" poster="{{ asset('images/foto-rumah-depan.png') }}"
+        <video id="hero-vid" autoplay muted loop playsinline preload="metadata" poster="{{ asset('images/foto-rumah-depan.jpg') }}"
                class="absolute inset-0 w-full h-full object-cover object-bottom sm:object-center">
             <source src="{{ asset('images/Rumah-Beranda.mp4') }}" type="video/mp4">
         </video>

@@ -41,7 +41,7 @@
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wide text-muted mb-1.5">Tipe Rumah <span class="normal-case font-normal">(opsional)</span></label>
                     <select name="tipe_rumah_id" class="w-full rounded-xl border border-line px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-600">
-                        <option value="">— Tanpa tipe —</option>
+                        <option value="">Tanpa tipe</option>
                         @foreach ($tipe as $t)
                             <option value="{{ $t->id }}" @selected(old('tipe_rumah_id', $fotoRumah?->tipe_rumah_id) == $t->id)>{{ $t->name }}</option>
                         @endforeach

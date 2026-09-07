@@ -16,7 +16,7 @@ class UnitRumah extends Model
 
     public function tipeRumah(): BelongsTo
     {
-        return $this->belongsTo(TipeRumah::class);
+        return $this->belongsTo(TipeRumah::class, 'unit_type_id');
     }
 
     public function serahTerima(): HasMany

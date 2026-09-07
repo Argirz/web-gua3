@@ -6,10 +6,10 @@
         </div>
 
         {{-- Peta --}}
-        <div class="anim-scale relative isolate overflow-hidden rounded-2xl ring-1 ring-line shadow-lg bg-brand-50 max-w-4xl mx-auto">
+        <div class="anim-scale relative isolate overflow-hidden rounded-2xl ring-1 ring-line shadow-lg bg-brand-50 max-w-4xl mx-auto aspect-[4/3] min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
             <iframe id="map"
                     src="https://maps.google.com/maps?q=Griya+Utama+Asri+3&z=17&hl=id&output=embed"
-                    class="relative z-10 w-full h-[600px] border-0"
+                    class="absolute inset-0 w-full h-full border-0"
                     loading="lazy"
                     allowfullscreen
                     referrerpolicy="no-referrer-when-downgrade"

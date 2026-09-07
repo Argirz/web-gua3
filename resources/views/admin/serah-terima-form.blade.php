@@ -25,7 +25,7 @@
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wide text-muted mb-1.5">Unit Rumah <span class="normal-case font-normal">(opsional)</span></label>
                     <select name="unit_rumah_id" class="w-full rounded-xl border border-line px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-600">
-                        <option value="">— Tanpa unit —</option>
+                        <option value="">Tanpa unit</option>
                         @foreach ($unit as $u)
                             <option value="{{ $u->id }}" @selected(old('unit_rumah_id', $serahTerima?->unit_rumah_id) == $u->id)>Unit {{ $u->block }}</option>
                         @endforeach

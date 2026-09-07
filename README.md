@@ -1,6 +1,6 @@
 # Griya Utama Asri 3 (GUA3)
 
-Website perumahan Griya Utama Asri 3 — kawasan perumahan di Banjar Baru,
+Website perumahan Griya Utama Asri 3 kawasan perumahan di Banjar Baru,
 Kalimantan Selatan. Berisi informasi denah tipe, status unit, harga, galeri,
 spesifikasi, dan brosur.
 
@@ -24,7 +24,7 @@ web-gua3/
 
 ## Run Lokal (XAMPP)
 
-1. **Backend** — jalankan Apache + MySQL di XAMPP, akses:
+1. **Backend** jalankan Apache + MySQL di XAMPP, akses:
    http://localhost/web-gua3/public
 2. **Frontend React**:
    ```powershell
@@ -32,7 +32,7 @@ web-gua3/
    npm install
    npm run dev
    ```
-   Akses http://localhost:5173 — proxy `/api`, `/images`, `/storage`
+   Akses http://localhost:5173 proxy `/api`, `/images`, `/storage`
    otomatis mengarah ke `http://localhost:8000` (jalankan `php artisan serve`).
 
 ## Kontak
